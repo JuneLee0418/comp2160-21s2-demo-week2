@@ -4,5 +4,6 @@ public class InputAxes
     public const string RotateRoll = "RotateRoll";
     public const string RotatePitch = "RotatePitch";
     public const string RotateHeading = "RotateHeading";
+    public const string Reset = "Reset";
 
 }
