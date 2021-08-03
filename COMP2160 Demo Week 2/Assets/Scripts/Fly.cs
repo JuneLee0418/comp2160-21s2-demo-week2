@@ -15,14 +15,18 @@ public class Fly : MonoBehaviour
     void Update()
     {
         // move forward
-        float forward = Input.GetAxis(InputAxes.Forward);
-        transform.Translate(forward * speed * Vector3.forward * Time.deltaTime, Space.Self);
+        // using 'd' as 'delta' to indicate the variable is a change in position
+        float dForward = Input.GetAxis(InputAxes.Forward);
+        transform.Translate(dForward * speed * Vector3.forward * Time.deltaTime, Space.Self);
 
         // rotate
-        float roll = Input.GetAxis(InputAxes.RotateRoll) * rotateSpeed * Time.deltaTime;
-        float pitch = Input.GetAxis(InputAxes.RotatePitch) * rotateSpeed * Time.deltaTime;
-        float heading = Input.GetAxis(InputAxes.RotateHeading) * rotateSpeed * Time.deltaTime;
+        // using 'd' as 'delta' to indicate the variable is a change in rotation
+        float dRoll = Input.GetAxis(InputAxes.RotateRoll) * rotateSpeed * Time.deltaTime;
+        float dPitch = Input.GetAxis(InputAxes.RotatePitch) * rotateSpeed * Time.deltaTime;
+        float dHeading = Input.GetAxis(InputAxes.RotateHeading) * rotateSpeed * Time.deltaTime;
 
-        transform.localEulerAngles = transform.localEulerAngles + new Vector3(pitch, heading, roll);
+        // note this suffers from gimbal-lock when pitch >= 90 degress
+        // https://en.wikipedia.org/wiki/Gimbal_lock
+        transform.localEulerAngles = transform.localEulerAngles + new Vector3(dPitch, dHeading, dRoll);
     }
 }
